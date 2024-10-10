@@ -4,9 +4,11 @@ import logo from '../assets/logo_converted.png'; // Import the logo image
 
 const TopBarContainer = styled.div`
   width: 100%;
+  height: 35%;
   grid-column: 1 / span 2;
+  grid-row: 1 / 2;
   background-color: #f5f5f5;
-  padding: 1rem 0rem;
+  padding: .5rem 0rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

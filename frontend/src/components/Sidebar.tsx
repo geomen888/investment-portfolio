@@ -7,6 +7,7 @@ interface CardProps {}
 interface SimulateButtonProps {
   onClick: () => void;
 }
+
 const Sidebar = styled.div<SidebarProps>`
   background-color: #fafafa;
   padding: .1rem;
@@ -14,6 +15,7 @@ const Sidebar = styled.div<SidebarProps>`
   flex-direction: row;
   flex-wrap: wrap;
   grid-column: 1 / 2;
+  grid-row: 2 / 4;
 `;
 
 const Card = styled.div<CardProps>`

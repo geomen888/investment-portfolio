@@ -6,7 +6,6 @@ interface TopPanelProps { }
 interface VentureFundsInfoProps { }
 
 const TopPanel = styled.div<TopPanelProps>`
-  grid-column: 1 / span 2;
   background-color: #f5f5f5;
   padding: .5rem;
   display: flex;

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 import { CompanyEntity } from './company.entity';
-import { FundingRound } from './../../common/enums';
+import { FundingRound, InvestmentStatus, Tags, GoalInvestmentStatus } from './../../common/enums';
 
 
 @Entity('investments')
@@ -30,16 +30,32 @@ export class InvestmentEntity {
   })
   fundingRound: FundingRound;
 
+  @Column({
+    type: 'enum',
+    array: true,
+    enum: Tags,
+    default: [],
+  })
+  areaOfFunding: Tags[];
+
   @Column({ nullable: true })
   description: string;
 
   @Column('int')
   quantityOnboardedEmployees: number;
 
-  @Column({ default: 'pending' })
+  @Column({
+    type: 'enum',
+    enum: GoalInvestmentStatus,
+    default: GoalInvestmentStatus.PENDING,
+  })
   goalStatus: string;
 
-  @Column({ default: 'approved' })
+  @Column({
+    type: 'enum',
+    enum: InvestmentStatus,
+    default: InvestmentStatus.PENDING,
+  })
   status: string;
 
   @Column({ default: false })

@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
-import { FundingRound } from './../../common/enums'
+import { FundingRound, Tags } from './../../common/enums'
 import { InvestmentEntity } from './investment.entity';
 
 @Entity('companies')
@@ -32,6 +32,14 @@ export class CompanyEntity {
 
   @Column({ default: false })
   judicialRestrictions: boolean;
+
+  @Column({
+    type: 'enum',
+    array: true,
+    enum: Tags,
+    default: [],
+  })
+  areaOfFunding: Tags[];
 
   @Column({ nullable: false })
   investmentAdmin: string;

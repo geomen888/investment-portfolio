@@ -11,10 +11,9 @@ interface DashboardGridProps {}
 
 const DashboardGrid = styled.div<DashboardGridProps>`
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto 6(1fr);
-  grid-gap: 20px;
-  padding: 20px;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 2rem;
+  padding: 1.5rem;
   height: 100vh;
   box-sizing: border-box;
 `;
@@ -24,7 +23,6 @@ const Dashboard: React.FC = () => {
   return (
     <DashboardGrid>
     <Topbar />
-    <TopPanel />
     <SideBar />
     <Chart />
     <Table />
