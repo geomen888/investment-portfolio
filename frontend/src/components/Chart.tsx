@@ -1,4 +1,13 @@
 import React from 'react';
+import Chart, {
+  Legend,
+  SeriesTemplate,
+  ISeriesTemplateProps,
+  Title,
+  Subtitle,
+  CommonSeriesSettings,
+  Export,
+} from 'devextreme-react/chart';
 import styled from 'styled-components';
 
 import TopPanel from './TopPanel'
@@ -11,15 +20,45 @@ const ChartArea = styled.div<ChartAreaProps>`
   border: 1px solid #ccc;
   border-radius: 5px;
   grid-row: 2 / 4;
-
 `;
 
-const Chart: React.FC = () => {
-  return (<ChartArea>
-     <TopPanel />
-    <h3>Investment Chart</h3>
-    <p>Placeholder for chart visualization.</p>
-  </ChartArea>)
+import { dataSource } from './data2';
+
+const customizeSeries: ISeriesTemplateProps['customizeSeries'] = (valueFromNameField: number) => (
+  valueFromNameField === 2009
+    ? { type: 'line', label: { visible: true }, color: '#ff3f7a' }
+    : {}
+);
+
+const ChartComponent: React.FC = () => {
+  return (
+    <ChartArea>
+    <TopPanel />
+    <Chart
+      id="chart"
+      palette="Violet"
+      dataSource={dataSource}>
+      <SeriesTemplate
+        nameField="year"
+        customizeSeries={customizeSeries}
+      />
+      <CommonSeriesSettings
+        argumentField="country"
+        valueField="oil"
+        type="bar"
+      />
+      <Title text="Portfolio valuation">
+        <Subtitle text="(in millions dollars)" />
+      </Title>
+      <Legend
+        verticalAlignment="bottom"
+        horizontalAlignment="center"
+      />
+      <Export enabled={true} />
+    </Chart>
+    </ChartArea>
+  );
 }
 
-export default Chart;
+
+export default ChartComponent;

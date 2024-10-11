@@ -11,12 +11,17 @@ export class CompanyService {
     private readonly companyRepository: Repository<CompanyEntity>,
   ) {}
 
-  async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
+  async findPaginate(page: number, limit: number): Promise<CompanyEntity[]> {
     return this.companyRepository.find({
       relations: ['investments'],
       skip: (page - 1) * limit,
       take: limit,
     });
+  }
+
+  async findAll(): Promise<CompanyEntity[]> {
+    console.log('all')
+    return this.companyRepository.find({ relations: ['investments'] });
   }
 
   async create(companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {

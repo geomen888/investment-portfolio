@@ -21,12 +21,16 @@ let CompanyService = class CompanyService {
     constructor(companyRepository) {
         this.companyRepository = companyRepository;
     }
-    async findAll(page, limit) {
+    async findPaginate(page, limit) {
         return this.companyRepository.find({
             relations: ['investments'],
             skip: (page - 1) * limit,
             take: limit,
         });
+    }
+    async findAll() {
+        console.log('all');
+        return this.companyRepository.find({ relations: ['investments'] });
     }
     async create(companyData) {
         const company = this.companyRepository.create(companyData);

@@ -19,8 +19,11 @@ let CompanyController = class CompanyController {
     constructor(companyService) {
         this.companyService = companyService;
     }
-    async findAll(page = 1, limit = 10) {
-        return this.companyService.findAll(page, limit);
+    async findPaginate(page = 1, limit = 10) {
+        return this.companyService.findPaginate(page, limit);
+    }
+    async findAll() {
+        return this.companyService.findAll();
     }
     async create(companyData) {
         return this.companyService.create(companyData);
@@ -28,11 +31,17 @@ let CompanyController = class CompanyController {
 };
 exports.CompanyController = CompanyController;
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('paginate'),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('limit')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:returntype", Promise)
+], CompanyController.prototype, "findPaginate", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "findAll", null);
 __decorate([

@@ -37,9 +37,10 @@ let SeederService = class SeederService {
             const investments = [];
             for (let i = 0; i < limit; i++) {
                 const tags = generateRandom(enums_1.Tags);
-                const fundingRound = generateRandom(enums_1.FundingRound);
+                const fundingRound = faker_1.faker.helpers.enumValue(enums_1.FundingRound);
                 const companyEntity = {
                     name: faker_1.faker.company.name(),
+                    establishedDate: faker_1.faker.date.between({ from: '2002-01-01', to: '2022-01-05' }),
                     description: faker_1.faker.company.catchPhrase(),
                     tags,
                     valuation: faker_1.faker.finance.amount({
@@ -48,6 +49,7 @@ let SeederService = class SeederService {
                         dec: 0,
                     }),
                     fundingRound,
+                    investmentAdmin: faker_1.faker.person.fullName(),
                     verified: faker_1.faker.datatype.boolean(),
                     quantityOfEmployees: faker_1.faker.number.int({ min: 10, max: 500 }),
                     email: faker_1.faker.internet.email(),
@@ -63,9 +65,10 @@ let SeederService = class SeederService {
                     tags,
                     amount: faker_1.faker.finance.amount({ min: 100000, max: 1000000, dec: 0 }),
                     fundingRound,
+                    investmentAdmin: faker_1.faker.person.fullName(),
                     quantityOnboardedEmployees: faker_1.faker.number.int({ min: 10, max: 100 }),
-                    goalStatus: generateRandom(enums_1.GoalInvestmentStatus),
-                    status: generateRandom(enums_1.InvestmentStatus),
+                    goalStatus: faker_1.faker.helpers.enumValue(enums_1.GoalInvestmentStatus),
+                    status: faker_1.faker.helpers.enumValue(enums_1.InvestmentStatus),
                     simulation: false,
                 };
                 const investment = this.InvestmentRepo.create(investmentEntity);

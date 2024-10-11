@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, } from '@nestjs/core';
 import * as commandLineArgs from 'command-line-args';
 import * as commandLineUsage from 'command-line-usage';
 
@@ -32,6 +32,7 @@ const usage = commandLineUsage([
 ]);
 
 async function bootstrap() {
+
   const options = commandLineArgs(optionDefinitions);
 
   if (options.help) {

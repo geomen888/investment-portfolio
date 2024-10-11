@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Date)
 ], InvestmentEntity.prototype, "createdDate", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false }),
+    (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], InvestmentEntity.prototype, "investmentAdmin", void 0);
 __decorate([

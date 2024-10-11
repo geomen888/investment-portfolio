@@ -20,7 +20,7 @@ export class InvestmentEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdDate: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   investmentAdmin: string;
 
   @Column({

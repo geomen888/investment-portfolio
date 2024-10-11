@@ -19,6 +19,7 @@ export class SeederService {
 
   async seed(limit: number): Promise<void> {
     try {
+
       const existingCompany = await this.CompanyRepo.find();
       if (existingCompany.length) {
         console.log('Company already exist, skipping seeding');
@@ -30,9 +31,10 @@ export class SeederService {
 
       for (let i = 0; i < limit; i++) {
         const tags = generateRandom<Tags>(Tags);
-        const fundingRound = generateRandom<FundingRound>(FundingRound);
+        const fundingRound = faker.helpers.enumValue(FundingRound);
         const companyEntity = {
           name: faker.company.name(),
+          establishedDate: faker.date.between({ from: '2002-01-01', to: '2022-01-05' }),
           description: faker.company.catchPhrase(),
           tags,
           valuation: faker.finance.amount({
@@ -41,6 +43,7 @@ export class SeederService {
             dec: 0,
           }),
           fundingRound,
+          investmentAdmin: faker.person.fullName(),
           verified: faker.datatype.boolean(),
           quantityOfEmployees: faker.number.int({ min: 10, max: 500 }),
           email: faker.internet.email(),
@@ -58,9 +61,10 @@ export class SeederService {
           tags,
           amount: faker.finance.amount({ min: 100000, max: 1000000, dec: 0 }),
           fundingRound,
+          investmentAdmin: faker.person.fullName(),
           quantityOnboardedEmployees: faker.number.int({ min: 10, max: 100 }),
-          goalStatus: generateRandom<FundingRound>(GoalInvestmentStatus),
-          status: generateRandom<InvestmentStatus>(InvestmentStatus),
+          goalStatus: faker.helpers.enumValue(GoalInvestmentStatus),
+          status: faker.helpers.enumValue(InvestmentStatus),
           simulation: false,
         } as unknown as InvestmentEntity;
 
