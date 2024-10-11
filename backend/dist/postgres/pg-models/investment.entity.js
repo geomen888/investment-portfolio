@@ -56,7 +56,7 @@ __decorate([
         default: [],
     }),
     __metadata("design:type", Array)
-], InvestmentEntity.prototype, "areaOfFunding", void 0);
+], InvestmentEntity.prototype, "tags", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)

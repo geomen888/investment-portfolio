@@ -6,4 +6,5 @@ export declare class CompanyService {
     findPaginate(page: number, limit: number): Promise<CompanyEntity[]>;
     findAll(): Promise<CompanyEntity[]>;
     create(companyData: Partial<CompanyEntity>): Promise<CompanyEntity>;
+    update(id: string, companyData: Partial<CompanyEntity>): Promise<CompanyEntity>;
 }

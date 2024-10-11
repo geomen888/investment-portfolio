@@ -6,4 +6,5 @@ export declare class CompanyController {
     findPaginate(page?: number, limit?: number): Promise<CompanyEntity[]>;
     findAll(): Promise<CompanyEntity[]>;
     create(companyData: Partial<CompanyEntity>): Promise<CompanyEntity>;
+    update(companyData: Partial<CompanyEntity>): Promise<CompanyEntity>;
 }

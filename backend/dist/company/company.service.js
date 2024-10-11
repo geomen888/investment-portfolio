@@ -36,6 +36,14 @@ let CompanyService = class CompanyService {
         const company = this.companyRepository.create(companyData);
         return this.companyRepository.save(company);
     }
+    async update(id, companyData) {
+        const company = await this.companyRepository.findOne({ where: { id } });
+        if (!company) {
+            throw new common_1.NotFoundException(`Company with ID ${id} not found`);
+        }
+        Object.assign(company, companyData);
+        return this.companyRepository.save(company);
+    }
 };
 exports.CompanyService = CompanyService;
 exports.CompanyService = CompanyService = __decorate([

@@ -2,15 +2,15 @@ version: '3.3'
 
 services:
   # # Frontend Service (React)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: portfolio-frontend
-  #   ports:
-  #     - "3001:80"
-  #   networks:
-  #     - portfolio-network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio-frontend
+    ports:
+      - "3001:80"
+    networks:
+      - portfolio-network
 
   # PostgreSQL Service
   db:
@@ -30,71 +30,71 @@ services:
       - portfolio-network
   
   # Backend Service (NestJS App)
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.backend
-  #   container_name: portfolio-backend
-  #   environment:
-  #     POSTGRES_HOST: ${DATABASE_HOST}
-  #     POSTGRES_PORT: ${DATABASE_PORT}
-  #     POSTGRES_USER: ${DATABASE_USER}
-  #     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-  #     POSTGRES_DB: ${DATABASE_NAME}
-  #   ports:
-  #     - "3000:3000"
-  #   env_file: 
-  #     - .env   
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - ./backend:/usr/src/app
-  #   networks:
-  #     - portfolio-network
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: portfolio-backend
+    environment:
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_PORT: ${DATABASE_PORT}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "3000:3000"
+    env_file: 
+      - .env   
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - portfolio-network
 
   # Backend Seeder Service
-  # backend-seed:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.backend-seed
-  #   container_name: portfolio-backend-seed
-  #   command: ["node", "dist/postgres/seeds/seeder.js", "--limit", "50"]
-  #   environment:
-  #     POSTGRES_HOST: ${DATABASE_HOST}
-  #     POSTGRES_PORT: ${DATABASE_PORT}
-  #     POSTGRES_USER: ${DATABASE_USER}
-  #     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-  #     POSTGRES_DB: ${DATABASE_NAME}
-  #   depends_on:
-  #     - db
-  #   env_file: 
-  #     - .env   
-  #   volumes:
-  #     - ./backend:/usr/src/app
-  #   networks:
-  #     - portfolio-network    
+  backend-seed:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend-seed
+    container_name: portfolio-backend-seed
+    command: ["node", "dist/postgres/seeds/seeder.js", "--limit", "50"]
+    environment:
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_PORT: ${DATABASE_PORT}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    depends_on:
+      - db
+    env_file: 
+      - .env   
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - portfolio-network    
 
   # # Backend Test Service
-  # backend-test:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.backend-test
-  #   container_name: portfolio-backend-test
-  #   command: ["pnpm", "run", "test"]
-  #   environment:
-  #     POSTGRES_HOST: ${DATABASE_HOST}
-  #     POSTGRES_PORT: ${DATABASE_PORT}
-  #     POSTGRES_USER: ${DATABASE_USER}
-  #     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-  #     POSTGRES_DB: ${DATABASE_NAME}
-  #   depends_on:
-  #     - db
-  #   env_file: 
-  #     - .env   
-  #   volumes:
-  #     - ./backend:/usr/src/app
-  #   networks:
-  #     - portfolio-network
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend-test
+    container_name: portfolio-backend-test
+    command: ["pnpm", "run", "test"]
+    environment:
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_PORT: ${DATABASE_PORT}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    depends_on:
+      - db
+    env_file: 
+      - .env   
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - portfolio-network
 
 networks:
   portfolio-network:

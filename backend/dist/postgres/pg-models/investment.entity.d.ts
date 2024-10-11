@@ -1,5 +1,5 @@
 import { CompanyEntity } from './company.entity';
-import { FundingRound, Tags } from './../../common/enums';
+import { FundingRound, InvestmentStatus, Tags, GoalInvestmentStatus } from './../../common/enums';
 export declare class InvestmentEntity {
     id: string;
     company: CompanyEntity;
@@ -7,11 +7,11 @@ export declare class InvestmentEntity {
     createdDate: Date;
     investmentAdmin: string;
     fundingRound: FundingRound;
-    areaOfFunding: Tags[];
+    tags: Tags[];
     description: string;
     quantityOnboardedEmployees: number;
-    goalStatus: string;
-    status: string;
+    goalStatus: GoalInvestmentStatus;
+    status: InvestmentStatus;
     simulation: boolean;
     admin: string;
 }

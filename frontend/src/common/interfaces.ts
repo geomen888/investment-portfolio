@@ -7,7 +7,7 @@ export interface Company {
  establishedDate: Date;
  description: string;
  logo: string;
- investments: Investments[];
+ investments: Investment[];
  judicialRestrictions: boolean;
  tags: Tags[];
  investmentAdmin: string;

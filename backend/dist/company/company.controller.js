@@ -26,11 +26,13 @@ let CompanyController = class CompanyController {
         return this.companyService.findAll();
     }
     async create(companyData) {
-        console.log('companyData::', companyData);
         return this.companyService.create({
             ...companyData,
             tags: [companyData.tags]
         });
+    }
+    async update(companyData) {
+        return this.companyService.update(companyData.id, companyData);
     }
 };
 exports.CompanyController = CompanyController;
@@ -55,6 +57,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CompanyController.prototype, "update", null);
 exports.CompanyController = CompanyController = __decorate([
     (0, common_1.Controller)('companies'),
     __metadata("design:paramtypes", [company_service_1.CompanyService])
