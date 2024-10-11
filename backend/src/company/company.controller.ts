@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Put } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CompanyEntity } from '../postgres/pg-models/company.entity';
 
@@ -18,11 +18,15 @@ export class CompanyController {
 
   @Post()
   async create(@Body() companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {
-    console.log('companyData::', companyData);
 
     return this.companyService.create({
       ...companyData,
       tags: [companyData.tags as any]
     });
+  }
+
+  @Put()
+  async update(@Body() companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {
+    return this.companyService.update(companyData.id, companyData);
   }
 }

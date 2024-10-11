@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import TopPanel from './TopPanel'
 import { fetchInvestments } from './../store/investment-slice';
 import { AppDispatch, InvestmentsState, UIState } from './../store';
+import { RequestStatus } from '../common/enums';
 
 interface ChartAreaProps {
    checked: boolean;
@@ -41,7 +42,7 @@ const ChartComponent: React.FC = () => {
   const { items = [], status } = useSelector((state: InvestmentsState) => state.investments) || {};
 
   useLayoutEffect(() => {
-    if (status === 'idle') {
+    if (status === RequestStatus.IDLE) {
       dispatch(fetchInvestments());
     }
   }, [status, dispatch]);

@@ -1,8 +1,9 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Dashboard from './components/Dashboard';
 import { AppDispatch, CompaniesState } from './store';
+import { RequestStatus  } from './common/enums';
 
 import { fetchCompanies } from './store/company-slice';
 
@@ -12,7 +13,7 @@ function App() {
   const companies = useSelector((state: CompaniesState) => state.companies);
 
   useLayoutEffect(() => {
-    if (companies.status === 'idle') {
+    if (companies.status === RequestStatus.IDLE) {
       dispatch(fetchCompanies());
     }
   }, [companies, dispatch]);

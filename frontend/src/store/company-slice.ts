@@ -1,29 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-interface Company {
-  id: string;
-  name: string;
-  location: string;
-  fundingRound: string;
-  employees: number;
-  investment: string;
-}
+import { URL } from './../common/constants'; 
+import { RequestStatus  } from '../common/enums';
+import { Company } from '../common/interfaces';
 
 interface CompaniesState {
   items: Company[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: RequestStatus;
   error: string | null;
 }
 
 const initialState: CompaniesState = {
   items: [],
-  status: 'idle',
+  status: RequestStatus.IDLE,
   error: null,
 };
 
 const fetchData = async () => {
   const response = await fetch(
-    'http://localhost:3000/companies'
+    `${URL}/companies`
   );
 
   if (!response.ok) {
@@ -47,14 +41,14 @@ const companiesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCompanies.pending, (state) => {
-        state.status = 'loading';
+        state.status = RequestStatus.LOADING;
       })
       .addCase(fetchCompanies.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = RequestStatus.SUCCEEDED;
         state.items = action.payload;
       })
       .addCase(fetchCompanies.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status =  RequestStatus.FAILED;
         state.error = action.error.message || 'Failed to fetch companies';
       });
   },

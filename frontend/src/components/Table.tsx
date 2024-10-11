@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DataGrid, {
   Column,
@@ -8,7 +8,7 @@ import DataGrid, {
 import { useSelector } from 'react-redux';
 import { CompaniesState } from '../store'; 
 
-interface InvestedCompaniesTableProps {}
+interface InvestedCompaniesTableProps {};
 
 const InvestedCompaniesTable = styled.div<InvestedCompaniesTableProps>`
   background-color: white;
@@ -54,6 +54,5 @@ const Table: React.FC = () => {
     </InvestedCompaniesTable>
   );
 };
-
 
 export default Table;

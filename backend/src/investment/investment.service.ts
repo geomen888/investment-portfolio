@@ -18,4 +18,5 @@ export class InvestmentService {
     const investment = this.investmentRepository.create(investmentData);
     return this.investmentRepository.save(investment);
   }
+
 }

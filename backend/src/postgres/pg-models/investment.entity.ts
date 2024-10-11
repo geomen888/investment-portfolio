@@ -1,7 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
-
 import { CompanyEntity } from './company.entity';
 import { FundingRound, InvestmentStatus, Tags, GoalInvestmentStatus } from './../../common/enums';
 
@@ -36,7 +35,7 @@ export class InvestmentEntity {
     enum: Tags,
     default: [],
   })
-  areaOfFunding: Tags[];
+  tags: Tags[];
 
   @Column({ nullable: true })
   description: string;
@@ -49,14 +48,14 @@ export class InvestmentEntity {
     enum: GoalInvestmentStatus,
     default: GoalInvestmentStatus.PENDING,
   })
-  goalStatus: string;
+  goalStatus: GoalInvestmentStatus;
 
   @Column({
     type: 'enum',
     enum: InvestmentStatus,
     default: InvestmentStatus.PENDING,
   })
-  status: string;
+  status: InvestmentStatus;
 
   @Column({ default: false })
   simulation: boolean;
