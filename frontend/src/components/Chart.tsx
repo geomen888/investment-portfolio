@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Chart, {
   Legend,
   SeriesTemplate,
@@ -9,8 +9,11 @@ import Chart, {
   Export,
 } from 'devextreme-react/chart';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
 import TopPanel from './TopPanel'
+import { fetchInvestments } from './../store/investment-slice';
+import { AppDispatch, InvestmentsState } from './../store';
 
 interface ChartAreaProps { }
 
@@ -22,29 +25,38 @@ const ChartArea = styled.div<ChartAreaProps>`
   grid-row: 2 / 4;
 `;
 
-import { dataSource } from './data2';
-
-const customizeSeries: ISeriesTemplateProps['customizeSeries'] = (valueFromNameField: number) => (
-  valueFromNameField === 2009
-    ? { type: 'line', label: { visible: true }, color: '#ff3f7a' }
-    : {}
-);
+// const customizeSeries: ISeriesTemplateProps['customizeSeries'] = (valueFromNameField: string) => (
+//   valueFromNameField === 2009
+//     ? { type: 'line', label: { visible: true }, color: '#ff3f7a' }
+//     : {}
+// );
 
 const ChartComponent: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const { items = [], status } = useSelector((state: InvestmentsState) => state.investments) || {};
+
+  useLayoutEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchInvestments());
+    }
+  }, [status, dispatch]);
+
+
   return (
     <ChartArea>
     <TopPanel />
     <Chart
       id="chart"
       palette="Violet"
-      dataSource={dataSource}>
+      dataSource={items}>
       <SeriesTemplate
-        nameField="year"
-        customizeSeries={customizeSeries}
+        nameField="createdDate"
+        // customizeSeries={customizeSeries}
       />
       <CommonSeriesSettings
-        argumentField="country"
-        valueField="oil"
+        argumentField="fundingRound"
+        valueField="amount"
         type="bar"
       />
       <Title text="Portfolio valuation">
@@ -59,6 +71,5 @@ const ChartComponent: React.FC = () => {
     </ChartArea>
   );
 }
-
 
 export default ChartComponent;

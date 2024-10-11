@@ -18,12 +18,12 @@ const DashboardGrid = styled.div<DashboardGridProps>`
   box-sizing: border-box;
 `;
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = (data: any) => {
   
   return (
     <DashboardGrid>
     <Topbar />
-    <SideBar />
+    <SideBar  />
     <Chart />
     <Table />
     </DashboardGrid>

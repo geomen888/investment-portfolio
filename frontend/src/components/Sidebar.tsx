@@ -1,14 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import DataGrid, {
-  Scrolling, Pager, Paging, DataGridTypes, Editing,
+
+  Column, Scrolling, Pager, Paging, DataGridTypes, Editing,
 } from 'devextreme-react/data-grid';
+import { useSelector } from 'react-redux';
 
-import { generateData, displayModeLabel } from './data';
-
+import { CompaniesState } from '../store'; 
 
 interface SidebarProps {}
-interface CardProps {}
 interface SimulateButtonProps {
   onClick: () => void;
 }
@@ -23,13 +23,6 @@ const Sidebar = styled.div<SidebarProps>`
   grid-row: 2 / 4;
 `;
 
-const Card = styled.div<CardProps>`
-  background: white;
-  padding: 15px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
 
 const SimulateButton = styled.button<SimulateButtonProps>`
   background-color: #4CAF50;
@@ -47,40 +40,44 @@ const SimulateButton = styled.button<SimulateButtonProps>`
 
 const allowedPageSizes: (DataGridTypes.PagerPageSize | number)[] = [5, 10, 'all'];
 const customizeColumns = (columns: DataGridTypes.Column[]) => { columns[0].width = 70; };
-const data = generateData(100000);
 
 const SideBar: React.FC = () => {
-  const [displayMode, setDisplayMode] = useState<DataGridTypes.PagerDisplayMode>('full');
-  const [showPageSizeSelector, setShowPageSizeSelector] = useState(true);
-  const [showInfo, setShowInfo] = useState(true);
-  const [showNavButtons, setShowNavButtons] = useState(true);
+  const { items = [] } = useSelector((state: CompaniesState) => state.companies);
 
   const handleSimulationClick = () => {
-    console.log("Simulation triggered");
+    console.log('Simulation triggered');
   };
 
   return (<Sidebar>
-    <DataGrid
-        id='gridContainer'
-        dataSource={data}
+     <DataGrid
+        id='invested-companies'
+        dataSource={items}
         keyExpr="id"
         showBorders={true}
-        // customizeColumns={customizeColumns}
+        customizeColumns={customizeColumns}
       >
         <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging defaultPageSize={10} />
         <Editing
-        mode="form"
-        allowUpdating={true}
-        allowAdding={true}
-        allowDeleting={false} />
+          mode="form"
+          allowUpdating={true}
+          allowAdding={true}
+          allowDeleting={false} />
+        <Column dataField="name" caption="Company Name" minWidth={300} />
+        <Column dataField="investmentAdmin"/>
+        <Column dataField="description" />
+        <Column dataField="fundingRound" />
+        <Column dataField="tags" minWidth={200} />
+        <Column dataField="valuation" />
+        <Column dataField="verified" />
+        <Column dataField="quantityOfEmployees" caption="Quantity of employers" />
         <Pager
           visible={true}
           allowedPageSizes={allowedPageSizes}
-          displayMode={displayMode}
-          showPageSizeSelector={showPageSizeSelector}
-          showInfo={showInfo}
-          showNavigationButtons={showNavButtons} />
+          displayMode={'full'}
+          showPageSizeSelector={true}
+          showInfo={true}
+          showNavigationButtons={true} />
       </DataGrid>
     <SimulateButton onClick={handleSimulationClick}>Trigger Simulation Mode</SimulateButton>
   </Sidebar>)
