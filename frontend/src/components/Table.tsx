@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import styled from 'styled-components';
 import DataGrid, {
   Column,
-  Scrolling, Pager, Paging, DataGridTypes, Editing,
+  Scrolling, Pager, Paging, DataGridTypes,
 } from 'devextreme-react/data-grid';
 
 import { useSelector } from 'react-redux';
@@ -36,18 +36,12 @@ const Table: React.FC = () => {
       >
         <Scrolling rowRenderingMode='virtual'></Scrolling>
         <Paging defaultPageSize={10} />
-        <Editing
-          mode="form"
-          allowUpdating={true}
-          allowAdding={false}
-          allowDeleting={false} />
         <Column dataField="name" caption="Company Name" minWidth={300} />
         <Column dataField="investmentAdmin" />
-        <Column dataField="description" />
+        <Column dataField="description" minWidth={350}/>
         <Column dataField="fundingRound" />
         <Column dataField="tags" minWidth={200} />
         <Column dataField="valuation" />
-        <Column dataField="verified" />
         <Column dataField="quantityOfEmployees" caption="Quantity of employers" />
         <Pager
           visible={true}

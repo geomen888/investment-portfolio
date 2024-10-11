@@ -32,6 +32,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      devextreme:
+        specifier: ^24.1.6
+        version: 24.1.6
       devextreme-react:
         specifier: ^24.1.6
         version: 24.1.6(devextreme@24.1.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

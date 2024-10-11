@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import DataGrid, {
-
   Column, Scrolling, Pager, Paging, DataGridTypes, Editing,
 } from 'devextreme-react/data-grid';
-import { useSelector } from 'react-redux';
+import CustomStore from 'devextreme/data/custom_store';
 
-import { CompaniesState } from '../store'; 
 
 interface SidebarProps {}
 interface SimulateButtonProps {
@@ -38,11 +36,55 @@ const SimulateButton = styled.button<SimulateButtonProps>`
   }
 `;
 
-const allowedPageSizes: (DataGridTypes.PagerPageSize | number)[] = [5, 10, 'all'];
+const allowedPageSizes: (DataGridTypes.PagerPageSize | number)[] = [5, 10, 15];
 const customizeColumns = (columns: DataGridTypes.Column[]) => { columns[0].width = 70; };
+const URL = 'http://localhost:3000';
+
 
 const SideBar: React.FC = () => {
-  const { items = [] } = useSelector((state: CompaniesState) => state.companies);
+
+  const [companiesData] = useState(new CustomStore({
+    key: 'id',
+    load: () => sendRequest(`${URL}/companies`),
+    insert: (values) => sendRequest(`${URL}/companies`, 'POST', {
+      values: JSON.stringify(values),
+    }),
+    update: (key, values) => sendRequest(`${URL}/companies`, 'PUT', {
+      key,
+      values: JSON.stringify(values),
+    }),
+    remove: (key) => sendRequest(`${URL}/companies`, 'DELETE', {
+      key,
+    }),
+  }));
+
+
+  const sendRequest = useCallback(async (url: string, method = 'GET', data = {} as any) => {
+
+    const request: RequestInit = {
+      method, credentials: 'include',
+    };
+
+    if (['DELETE', 'POST', 'PUT'].includes(method)) {
+      const params = Object.keys(data)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .join('&');
+
+      request.body = params;
+      request.headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
+    }
+
+    const response = await fetch(url, request);
+
+    const isJson = response.headers.get('content-type')?.includes('application/json');
+    const result = isJson ? await response.json() : {};
+  
+    if (!response.ok) {
+      throw result.Message;
+    }
+
+    return method === 'GET' ? result : {};
+  }, []);
 
   const handleSimulationClick = () => {
     console.log('Simulation triggered');
@@ -50,8 +92,8 @@ const SideBar: React.FC = () => {
 
   return (<Sidebar>
      <DataGrid
-        id='invested-companies'
-        dataSource={items}
+        id='companies-candidates'
+        dataSource={companiesData}
         keyExpr="id"
         showBorders={true}
         customizeColumns={customizeColumns}

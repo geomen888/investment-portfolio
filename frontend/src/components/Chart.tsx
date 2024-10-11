@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import Chart, {
   Legend,
   SeriesTemplate,
-  ISeriesTemplateProps,
+  // ISeriesTemplateProps,
   Title,
   Subtitle,
   CommonSeriesSettings,
@@ -41,7 +41,6 @@ const ChartComponent: React.FC = () => {
       dispatch(fetchInvestments());
     }
   }, [status, dispatch]);
-
 
   return (
     <ChartArea>
