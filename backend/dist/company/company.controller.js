@@ -26,7 +26,11 @@ let CompanyController = class CompanyController {
         return this.companyService.findAll();
     }
     async create(companyData) {
-        return this.companyService.create(companyData);
+        console.log('companyData::', companyData);
+        return this.companyService.create({
+            ...companyData,
+            tags: [companyData.tags]
+        });
     }
 };
 exports.CompanyController = CompanyController;

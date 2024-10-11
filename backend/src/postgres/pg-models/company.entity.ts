@@ -21,9 +21,6 @@ export class CompanyEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column('simple-array')
-  tags: string[];
-
   @Column({ nullable: true })
   logo: string;
 
@@ -39,7 +36,7 @@ export class CompanyEntity {
     enum: Tags,
     default: [],
   })
-  areaOfFunding: Tags[];
+  tags: Tags[];
 
   @Column({ nullable: false })
   investmentAdmin: string;
@@ -68,12 +65,6 @@ export class CompanyEntity {
 
   @Column({ nullable: false })
   address: string;
-
-  @Column('simple-array')
-  branches: string[];
-
-  @Column('simple-array')
-  countriesOfJurisdiction: string[];
 
   @Column('int')
   quantityOfEmployees: number;

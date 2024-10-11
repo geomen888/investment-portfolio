@@ -41,10 +41,6 @@ __decorate([
     __metadata("design:type", String)
 ], CompanyEntity.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)('simple-array'),
-    __metadata("design:type", Array)
-], CompanyEntity.prototype, "tags", void 0);
-__decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], CompanyEntity.prototype, "logo", void 0);
@@ -64,7 +60,7 @@ __decorate([
         default: [],
     }),
     __metadata("design:type", Array)
-], CompanyEntity.prototype, "areaOfFunding", void 0);
+], CompanyEntity.prototype, "tags", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
@@ -101,14 +97,6 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
 ], CompanyEntity.prototype, "address", void 0);
-__decorate([
-    (0, typeorm_1.Column)('simple-array'),
-    __metadata("design:type", Array)
-], CompanyEntity.prototype, "branches", void 0);
-__decorate([
-    (0, typeorm_1.Column)('simple-array'),
-    __metadata("design:type", Array)
-], CompanyEntity.prototype, "countriesOfJurisdiction", void 0);
 __decorate([
     (0, typeorm_1.Column)('int'),
     __metadata("design:type", Number)

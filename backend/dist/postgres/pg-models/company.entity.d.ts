@@ -6,11 +6,10 @@ export declare class CompanyEntity {
     createdDate: Date;
     establishedDate: Date;
     description: string;
-    tags: string[];
     logo: string;
     investments: InvestmentEntity[];
     judicialRestrictions: boolean;
-    areaOfFunding: Tags[];
+    tags: Tags[];
     investmentAdmin: string;
     valuation: number;
     verified: boolean;
@@ -19,7 +18,5 @@ export declare class CompanyEntity {
     email: string;
     url: string;
     address: string;
-    branches: string[];
-    countriesOfJurisdiction: string[];
     quantityOfEmployees: number;
 }

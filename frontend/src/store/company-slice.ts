@@ -31,12 +31,10 @@ const fetchData = async () => {
   }
 
   const data = await response.json();
-  console.log('fetch', data);
 
   return data;
 };
 
-// Async thunk for fetching companies
 export const fetchCompanies = createAsyncThunk('companies/fetchCompanies', async () => {
   const companyData = await fetchData();
   return companyData;

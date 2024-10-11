@@ -13,9 +13,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import TopPanel from './TopPanel'
 import { fetchInvestments } from './../store/investment-slice';
-import { AppDispatch, InvestmentsState } from './../store';
+import { AppDispatch, InvestmentsState, UIState } from './../store';
 
-interface ChartAreaProps { }
+interface ChartAreaProps {
+   checked: boolean;
+ }
 
 const ChartArea = styled.div<ChartAreaProps>`
   background-color: white;
@@ -23,6 +25,7 @@ const ChartArea = styled.div<ChartAreaProps>`
   border: 1px solid #ccc;
   border-radius: 5px;
   grid-row: 2 / 4;
+  display: ${props => (props.checked ? `initial` : `none`)};
 `;
 
 // const customizeSeries: ISeriesTemplateProps['customizeSeries'] = (valueFromNameField: string) => (
@@ -33,6 +36,7 @@ const ChartArea = styled.div<ChartAreaProps>`
 
 const ChartComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const chartChecker = useSelector((state: UIState) => state.ui.cartIsVisible) || false;
 
   const { items = [], status } = useSelector((state: InvestmentsState) => state.investments) || {};
 
@@ -43,7 +47,7 @@ const ChartComponent: React.FC = () => {
   }, [status, dispatch]);
 
   return (
-    <ChartArea>
+    <ChartArea checked={ chartChecker } >
     <TopPanel />
     <Chart
       id="chart"

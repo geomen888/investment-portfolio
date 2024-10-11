@@ -18,6 +18,11 @@ export class CompanyController {
 
   @Post()
   async create(@Body() companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {
-    return this.companyService.create(companyData);
+    console.log('companyData::', companyData);
+
+    return this.companyService.create({
+      ...companyData,
+      tags: [companyData.tags as any]
+    });
   }
 }
