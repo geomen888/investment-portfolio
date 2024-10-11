@@ -10,6 +10,7 @@
 .snapshots/
 #Testing Output folder
 .output/
+.build/
 #Extension App-file
 *.app
 #Rapid Application Development File
@@ -20,3 +21,7 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+/backend/node_modules
+/backend/dist
+/frontend/node_modules
+/frontend/build

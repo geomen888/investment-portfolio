@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
 
 import { CompanyEntity } from '../pg-models/company.entity';
-import { Tags, FundingRound, GoalInvestmentStatus, InvestmentStatus  } from '../../common/enums'
+import { Tags, FundingRound, GoalInvestmentStatus, InvestmentStatus } from '../../common/enums'
 import { InvestmentEntity } from '../pg-models/investment.entity';
 
 @Injectable()
