@@ -47,7 +47,6 @@ const SideBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const chartChecker = useSelector((state: UIState) => state.ui.cartIsVisible) || false;
-  const [isEdit, setIsEdit] = useState(false);
   const [companiesData] = useState(new CustomStore({
     key: 'id',
     load: () => sendRequest(`${URL}/companies`),
@@ -94,25 +93,13 @@ const SideBar: React.FC = () => {
     console.log('Chart triggered');
   };
 
-  const onEditingStart = () => {
-    setIsEdit(true);
-  }
-
-  const onEditingEnd = () => {
-    setIsEdit(false);
-  }
-
   return (<Sidebar checked={chartChecker}>
     <DataGrid
       id='companies-candidates'
       dataSource={companiesData}
       keyExpr="id"
       showBorders={true}
-      onEditCanceled={onEditingEnd}
-      onSaving={onEditingEnd}
-      onEditorPreparing={onEditingStart}
       customizeColumns={customizeColumns}
-
     >
       <Scrolling rowRenderingMode='virtual'></Scrolling>
       <Paging defaultPageSize={10} />
@@ -120,7 +107,9 @@ const SideBar: React.FC = () => {
         mode="form"
         allowUpdating={true}
         allowAdding={true}
-        allowDeleting={false} />
+        allowDeleting={false}
+        
+      />
       <Column dataField="name" caption="Company Name" minWidth={200} dataType="string" />
       <Column dataField="establishedDate" dataType="date" />
       <Column dataField="email" dataType="string" />
@@ -134,15 +123,7 @@ const SideBar: React.FC = () => {
           displayExpr="name"
         />
       </Column>
-      { isEdit ? <Column dataField="tags" minWidth={200} >
-        <Lookup
-          dataSource={tags}
-          valueExpr="name"
-          displayExpr="name"
-        />
-      </Column>
-        : <Column dataField="tags" minWidth={200} />
-      }
+      <Column dataField="tags" minWidth={200} allowEditing={false} editorOptions={{ visible: false }} />
       <Column dataField="valuation" dataType="number" />
       <Column dataField="verified" dataType="boolean" />
       <Column dataField="quantityOfEmployees" caption="Quantity of employers" dataType="number" />

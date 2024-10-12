@@ -58,7 +58,6 @@ export class SeederService {
 
         const investmentEntity = {
           company,
-          tags,
           amount: faker.finance.amount({ min: 100000, max: 1000000, dec: 0 }),
           fundingRound,
           investmentAdmin: faker.person.fullName(),

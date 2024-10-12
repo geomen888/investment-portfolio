@@ -29,14 +29,6 @@ export class InvestmentEntity {
   })
   fundingRound: FundingRound;
 
-  @Column({
-    type: 'enum',
-    array: true,
-    enum: Tags,
-    default: [],
-  })
-  tags: Tags[];
-
   @Column({ nullable: true })
   description: string;
 
