@@ -2,7 +2,6 @@ import React, { useLayoutEffect } from 'react';
 import Chart, {
   Legend,
   SeriesTemplate,
-  // ISeriesTemplateProps,
   Title,
   Subtitle,
   CommonSeriesSettings,
@@ -28,12 +27,6 @@ const ChartArea = styled.div<ChartAreaProps>`
   grid-row: 2 / 4;
   display: ${props => (props.checked ? `initial` : `none`)};
 `;
-
-// const customizeSeries: ISeriesTemplateProps['customizeSeries'] = (valueFromNameField: string) => (
-//   valueFromNameField === 2009
-//     ? { type: 'line', label: { visible: true }, color: '#ff3f7a' }
-//     : {}
-// );
 
 const ChartComponent: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

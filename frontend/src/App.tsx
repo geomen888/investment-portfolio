@@ -2,6 +2,8 @@ import { useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Dashboard from './components/Dashboard';
+import GlobalStyles from './components/GlobalStyles'
+
 import { AppDispatch, CompaniesState } from './store';
 import { RequestStatus  } from './common/enums';
 
@@ -19,7 +21,9 @@ function App() {
   }, [companies, dispatch]);
 
   return (
+
     <div className="App">
+      <GlobalStyles />
       <Dashboard />
     </div>
   );

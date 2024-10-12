@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body } from '@nestjs/common';
 import { InvestmentService  } from './investment.service';
 import { InvestmentEntity } from '../postgres/pg-models/investment.entity';
 
@@ -13,6 +13,11 @@ export class InvestmentController {
 
   @Post()
   async create(@Body() investData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
-    return this.investmentService.create(investData);
+    return this.investmentService.createWithComanyId(investData);
+  }
+
+  @Put()
+  async update(@Body() investData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
+    return this.investmentService.updateWithComanyId(investData);
   }
 }

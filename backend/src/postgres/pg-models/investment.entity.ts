@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CompanyEntity } from './company.entity';
-import { FundingRound, InvestmentStatus, Tags, GoalInvestmentStatus } from './../../common/enums';
+import { FundingRound, InvestmentStatus, GoalInvestmentStatus } from './../../common/enums';
 
 
 @Entity('investments')
@@ -32,7 +32,7 @@ export class InvestmentEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column('int')
+  @Column({ default: 1, type: 'int' })
   quantityOnboardedEmployees: number;
 
   @Column({

@@ -9,7 +9,7 @@ export class CompanyService {
   constructor(
     @InjectRepository(CompanyEntity)
     private readonly companyRepository: Repository<CompanyEntity>,
-  ) {}
+  ) { }
 
   async findPaginate(page: number, limit: number): Promise<CompanyEntity[]> {
     return this.companyRepository.find({
@@ -20,8 +20,11 @@ export class CompanyService {
   }
 
   async findAll(): Promise<CompanyEntity[]> {
-    console.log('all')
-    return this.companyRepository.find({ relations: ['investments'] });
+    return this.companyRepository.find({
+      relations: ['investments'], order: {
+        createdDate: 'DESC',
+      }
+    });
   }
 
   async create(companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {

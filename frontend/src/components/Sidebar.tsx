@@ -8,7 +8,8 @@ import CustomStore from 'devextreme/data/custom_store';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, UIState } from './../store';
 import { uiActions } from './../store/ui-slice';
-import { tags, foundingRounds, URL } from '../common/constants';
+import { CompaniesState } from '../store';
+import { foundingRounds, goalStatus, investmentStatus, URL } from '../common/constants';
 interface SidebarProps {
   checked: boolean;
 }
@@ -45,18 +46,36 @@ const customizeColumns = (columns: DataGridTypes.Column[]) => { columns[0].width
 
 const SideBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const { items: companies } = useSelector((state: CompaniesState) => state.companies);
+
+  const companyItems = companies.map(company => ({
+    id: company.id,
+    name: company.name,
+  }));
+
+  const companyIvestments = companies.map(company => ({
+    companyId: company.id,
+    investmentsIds: company.investments.map(investment => investment.id)
+  }));
 
   const chartChecker = useSelector((state: UIState) => state.ui.cartIsVisible) || false;
   const [companiesData] = useState(new CustomStore({
     key: 'id',
-    load: () => sendRequest(`${URL}/companies`),
-    insert: (payload) => sendRequest(`${URL}/companies`, 'POST', {
+    load: () => sendRequest(`${URL}/investments`),
+    insert: (payload) => sendRequest(`${URL}/investments`, 'POST', {
       ...payload,
     }),
-    update: (key, payload) => sendRequest(`${URL}/companies`, 'PUT', {
-      id: key,
-      ...payload,
-    })
+    update: (key, payload) => {
+
+      const { companyId = null } = companyIvestments
+        .find(company => company.investmentsIds.includes(key)) || {};
+
+      return sendRequest(`${URL}/investments`, 'PUT', {
+        id: key,
+        companyId,
+        ...payload,
+      })
+    }
   }));
 
 
@@ -108,12 +127,22 @@ const SideBar: React.FC = () => {
         allowUpdating={true}
         allowAdding={true}
         allowDeleting={false}
-        
       />
-      <Column dataField="name" caption="Company Name" minWidth={200} dataType="string" />
-      <Column dataField="establishedDate" dataType="date" />
-      <Column dataField="email" dataType="string" />
-      <Column dataField="address" />
+      <Column dataField="companyId" caption="Company Name" minWidth={200} dataType="string" >
+        <Lookup
+          dataSource={companyItems}
+          valueExpr="id"
+          displayExpr="name"
+        />
+      </Column>
+      <Column dataField="amount" dataType="number" />
+      <Column dataField="goalStatus" >
+        <Lookup
+          dataSource={goalStatus}
+          valueExpr="name"
+          displayExpr="name"
+        />
+      </Column>
       <Column dataField="investmentAdmin" dataType="string" />
       <Column dataField="description" dataType="string" />
       <Column dataField="fundingRound">
@@ -123,10 +152,13 @@ const SideBar: React.FC = () => {
           displayExpr="name"
         />
       </Column>
-      <Column dataField="tags" minWidth={200} allowEditing={false} editorOptions={{ visible: false }} />
-      <Column dataField="valuation" dataType="number" />
-      <Column dataField="verified" dataType="boolean" />
-      <Column dataField="quantityOfEmployees" caption="Quantity of employers" dataType="number" />
+      <Column dataField="status" >
+        <Lookup
+          dataSource={investmentStatus}
+          valueExpr="name"
+          displayExpr="name"
+        />
+      </Column>
       <Pager
         visible={true}
         allowedPageSizes={allowedPageSizes}

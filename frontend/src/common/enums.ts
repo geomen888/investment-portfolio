@@ -33,7 +33,7 @@ export enum GoalInvestmentStatus {
   PENDING = 'pending',
   PAUSED = 'paused',
   FAILED = 'failed',
-  SICCESS = 'success'
+  SUCCESS = 'success'
 }
 
 export enum InvestmentStatus {

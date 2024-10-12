@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import DataGrid, {
   Column,
-  Scrolling, Pager, Paging, DataGridTypes,
+  Scrolling, Pager, Paging, DataGridTypes, Editing, Lookup
 } from 'devextreme-react/data-grid';
+import CustomStore from 'devextreme/data/custom_store';
 
-import { useSelector } from 'react-redux';
-import { CompaniesState } from '../store'; 
+
+import { foundingRounds, URL } from '../common/constants';
 
 interface InvestedCompaniesTableProps {};
 
@@ -23,34 +24,90 @@ const allowedPageSizes: (DataGridTypes.PagerPageSize | number)[] = [5, 10, 15];
 const customizeColumns = (columns: DataGridTypes.Column[]) => { columns[0].width = 70; };
 
 const Table: React.FC = () => {
-  const { items = [] } = useSelector((state: CompaniesState) => state.companies);
+
+  const [companiesData] = useState(new CustomStore({
+    key: 'id',
+    load: () => sendRequest(`${URL}/companies`),
+    insert: (payload) => sendRequest(`${URL}/companies`, 'POST', {
+      ...payload,
+    }),
+    update: (key, payload) => sendRequest(`${URL}/companies`, 'PUT', {
+      id: key,
+      ...payload,
+    })
+  }));
+
+  const sendRequest = useCallback(async (url: string, method = 'GET', data = {} as any) => {
+
+    const request: RequestInit = {
+      method, credentials: 'include',
+    };
+
+    if (['DELETE', 'POST', 'PUT'].includes(method)) {
+      const params = Object.keys(data)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .join('&');
+
+      request.body = params;
+      request.headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
+    }
+
+    const response = await fetch(url, request);
+
+    const isJson = response.headers.get('content-type')?.includes('application/json');
+    const result = isJson ? await response.json() : {};
+
+    if (!response.ok) {
+      throw result.Message;
+    }
+
+    return method === 'GET' ? result : {};
+  }, []);
+
     
   return (
     <InvestedCompaniesTable>
       <DataGrid
-        id='invested-companies'
-        dataSource={items}
-        keyExpr="id"
-        showBorders={true}
-        customizeColumns={customizeColumns}
-      >
-        <Scrolling rowRenderingMode='virtual'></Scrolling>
-        <Paging defaultPageSize={10} />
-        <Column dataField="name" caption="Company Name" minWidth={300} />
-        <Column dataField="investmentAdmin" />
-        <Column dataField="description" minWidth={350}/>
-        <Column dataField="fundingRound" />
-        <Column dataField="tags" minWidth={200} />
-        <Column dataField="valuation" />
-        <Column dataField="quantityOfEmployees" caption="Quantity of employers" />
-        <Pager
-          visible={true}
-          allowedPageSizes={allowedPageSizes}
-          displayMode={'full'}
-          showPageSizeSelector={true}
-          showInfo={true}
-          showNavigationButtons={true} />
-      </DataGrid>
+      id='companies-candidates'
+      dataSource={companiesData}
+      keyExpr="id"
+      showBorders={true}
+      customizeColumns={customizeColumns}
+    >
+      <Scrolling rowRenderingMode='virtual'></Scrolling>
+      <Paging defaultPageSize={10} />
+      <Editing
+        mode="form"
+        allowUpdating={true}
+        allowAdding={true}
+        allowDeleting={false}
+        
+      />
+      <Column dataField="name" caption="Company Name" minWidth={200} dataType="string" />
+      <Column dataField="establishedDate" dataType="date" />
+      <Column dataField="email" dataType="string" />
+      <Column dataField="address" />
+      <Column dataField="investmentAdmin" dataType="string" />
+      <Column dataField="description" dataType="string" />
+      <Column dataField="fundingRound">
+        <Lookup
+          dataSource={foundingRounds}
+          valueExpr="name"
+          displayExpr="name"
+        />
+      </Column>
+      <Column dataField="tags" minWidth={200} allowEditing={false} editorOptions={{ visible: false }} />
+      <Column dataField="valuation" dataType="number" />
+      <Column dataField="verified" dataType="boolean" />
+      <Column dataField="quantityOfEmployees" caption="Quantity of employers" dataType="number" />
+      <Pager
+        visible={true}
+        allowedPageSizes={allowedPageSizes}
+        displayMode={'full'}
+        showPageSizeSelector={true}
+        showInfo={true}
+        showNavigationButtons={true} />
+    </DataGrid>
     </InvestedCompaniesTable>
   );
 };

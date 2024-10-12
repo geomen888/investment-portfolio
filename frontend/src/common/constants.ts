@@ -1,4 +1,4 @@
-import { Tags, FundingRound } from './enums';
+import { Tags, FundingRound, GoalInvestmentStatus, InvestmentStatus } from './enums';
 
 export const URL = 'http://localhost:3000';
 
@@ -54,3 +54,18 @@ export const foundingRounds = [{
 {
   name: FundingRound.SERIES_C
 }];
+
+export const goalStatus = [
+  { name: GoalInvestmentStatus.FAILED },
+  { name: GoalInvestmentStatus.PAUSED },
+  { name: GoalInvestmentStatus.PENDING },
+  { name: GoalInvestmentStatus.SUCCESS },
+];
+
+export const investmentStatus = [
+  { name: InvestmentStatus.REJECTED },
+  { name: InvestmentStatus.PAUSED },
+  { name: InvestmentStatus.APPROVED },
+  { name: InvestmentStatus.PENDING },
+];
+

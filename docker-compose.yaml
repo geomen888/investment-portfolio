@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  # # Frontend Service (React)
+  # Frontend Service (React)
   frontend:
     build:
       context: ./frontend
@@ -74,7 +74,7 @@ services:
     networks:
       - portfolio-network    
 
-  # # Backend Test Service
+  # Backend Test Service
   backend-test:
     build:
       context: ./backend

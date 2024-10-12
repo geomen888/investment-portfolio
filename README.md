@@ -1,11 +1,13 @@
 
-# Investment-portfolio Dashboard: Administrative Dashboard for Contrary
+# Demo Version of Investment-portfolio Dashboard: Administrative Dashboard for Contrary
 
-The **Investment Dashboard** is an administrative tool designed to help to understand our portfolio. 
+The **Investment Dashboard** is an administrative tool designed to help to understand our portfolio (demo version). 
 The dashboard presents users with three primary views:
-- **Companies canditates for investment :** Displayed in table format, showcasing companies with option to ADD and UPDATE the Company entity.
+- **Investments table :** Displayed in table format, showcasing our investments with option to ADD and UPDATE the Investment entity accourding the company.
 - **Chart of investment :** Shows real investments.
-- **Companies that got investments:** Displayed in a table format, allowing users to review investment amounts, curent statuses and other information.
+- **Companies that got or pretend for investments:** Displayed in a table format, allowing users to review investment amounts, curent statuses and other information. 
+
+There are froms builded in the both tables. Please be accurate in adding and updating data, there no instaled form validators. It could be added afterward.
 
 The docker-compose.yaml has beckend, frontend services and besides testing and seed (add 80 items records) services.
   
@@ -23,7 +25,7 @@ The docker-compose.yaml has beckend, frontend services and besides testing and s
    DATABASE_PORT=5432
    DATABASE_USER=postgres
    DATABASE_PASSWORD=password
-   DATABASE_NAME=opportunities
+   DATABASE_NAME=portfolio
 
 2. **Build and Start the Application**
 

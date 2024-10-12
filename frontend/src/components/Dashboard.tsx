@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Topbar from './TopBar';
-import TopPanel from './TopPanel';
 import SideBar from './Sidebar';
 import Chart from './Chart';
 import Table from './Table';
@@ -18,7 +17,7 @@ const DashboardGrid = styled.div<DashboardGridProps>`
   box-sizing: border-box;
 `;
 
-const Dashboard: React.FC = (data: any) => {
+const Dashboard: React.FC = () => {
   
   return (
     <DashboardGrid>

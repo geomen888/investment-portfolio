@@ -14,7 +14,7 @@ export class SeederService {
     private readonly CompanyRepo: Repository<CompanyEntity>,
     @InjectRepository(InvestmentEntity)
     private readonly InvestmentRepo: Repository<InvestmentEntity>,
-    private logger: Logger,
+    private logger: Logger
   ) {}
 
   async seed(limit: number): Promise<void> {
