@@ -52,7 +52,7 @@ services:
     networks:
       - portfolio-network
 
-  # Backend Seeder Service
+  # # Backend Seeder Service
   backend-seed:
     build:
       context: ./backend
@@ -74,7 +74,7 @@ services:
     networks:
       - portfolio-network    
 
-  # Backend Test Service
+  # # Backend Test Service
   backend-test:
     build:
       context: ./backend

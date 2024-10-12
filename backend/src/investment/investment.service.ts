@@ -41,7 +41,6 @@ export class InvestmentService {
 
   async createWithComanyId(investmentData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
     try {
-
       if (!('companyId' in investmentData)) {
 
         return;
@@ -49,7 +48,10 @@ export class InvestmentService {
 
       const companyId = investmentData['companyId'] as string;
       const { company } = await this.findByCompanyId(companyId);
-      const investment = this.investmentRepository.create({ ...investmentData, company });
+
+      investmentData.company = company;
+
+      const investment = this.investmentRepository.create(investmentData);
 
       return this.investmentRepository.save(investment);
 
@@ -59,23 +61,22 @@ export class InvestmentService {
   }
 
   async updateWithComanyId(investmentData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
-    console.log('investmentData', investmentData)
     try {
 
-      if (!('companyId' in investmentData)) {
-
-        return;
-      }
-
-      const investment = await this.investmentRepository.findOne({ where: { id: investmentData.id } });
+      const investment = await this.investmentRepository.findOne({
+        relations: ['company'],
+        where: { id: investmentData.id }
+      });
 
       if (!investment) {
-        throw new NotFoundException(`Investmen with ID ${investmentData.id} not found`);
+        throw new NotFoundException(`Investment with ID ${investmentData.id} not found`);
       }
-      const companyId = investmentData['companyId'] as string;
+
+      const companyId = investment.company.id;
 
       const { company } = await this.findByCompanyId(companyId);
-      Object.assign(investment, company, investmentData);
+      Object.assign(investment, investmentData);
+      investment.company = company;
 
       return this.investmentRepository.save(investment);
 

@@ -34,7 +34,7 @@ export class CompanyEntity {
     type: 'enum',
     array: true,
     enum: Tags,
-    default: [],
+    default: [Tags.CONSUMER],
   })
   tags: Tags[];
 
