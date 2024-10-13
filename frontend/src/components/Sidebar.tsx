@@ -8,6 +8,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, UIState } from './../store';
 import { uiActions } from './../store/ui-slice';
+import { companiesActions } from './../store/company-slice';
 import { CompaniesState } from '../store';
 import { foundingRounds, goalStatus, investmentStatus, URL } from '../common/constants';
 interface SidebarProps {
@@ -48,12 +49,12 @@ const SideBar: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { items: companies } = useSelector((state: CompaniesState) => state.companies);
 
-  const companyItems = companies.map(company => ({
+  const companyItems = companies.map((company) => ({
     id: company.id,
     name: company.name,
   }));
 
-  const companyIvestments = companies.map(company => ({
+  const companyIvestments = companies.map((company) => ({
     companyId: company.id,
     investmentsIds: company.investments.map(investment => investment.id)
   }));
@@ -64,6 +65,9 @@ const SideBar: React.FC = () => {
     load: () => sendRequest(`${URL}/investments`),
     insert: (payload) => sendRequest(`${URL}/investments`, 'POST', {
       ...payload,
+    }).then((payload) => {
+      dispatch(companiesActions.triggerUpdateStatus());
+      return payload;
     }),
     update: (key, payload) => {
 

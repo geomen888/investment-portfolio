@@ -7,18 +7,24 @@ import GlobalStyles from './components/GlobalStyles'
 import { AppDispatch, CompaniesState } from './store';
 import { RequestStatus  } from './common/enums';
 
-import { fetchCompanies } from './store/company-slice';
+import { fetchCompanies, companiesActions } from './store/company-slice';
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
 
-  const companies = useSelector((state: CompaniesState) => state.companies);
+  const { status, updateTrigger } = useSelector((state: CompaniesState) => state.companies);
 
   useLayoutEffect(() => {
-    if (companies.status === RequestStatus.IDLE) {
+    
+    if (status === RequestStatus.IDLE) {
       dispatch(fetchCompanies());
     }
-  }, [companies, dispatch]);
+    if (updateTrigger) {
+      dispatch(fetchCompanies());
+      dispatch(companiesActions.triggerUpdateStatus());
+    } 
+
+  }, [status, updateTrigger, dispatch]);
 
   return (
 

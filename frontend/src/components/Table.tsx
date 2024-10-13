@@ -4,7 +4,10 @@ import DataGrid, {
   Column,
   Scrolling, Pager, Paging, DataGridTypes, Editing, Lookup
 } from 'devextreme-react/data-grid';
+import { useDispatch } from 'react-redux';
 import CustomStore from 'devextreme/data/custom_store';
+import { AppDispatch } from './../store';
+import { companiesActions } from './../store/company-slice';
 
 
 import { foundingRounds, URL } from '../common/constants';
@@ -24,12 +27,17 @@ const allowedPageSizes: (DataGridTypes.PagerPageSize | number)[] = [5, 10, 15];
 const customizeColumns = (columns: DataGridTypes.Column[]) => { columns[0].width = 70; };
 
 const Table: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
 
   const [companiesData] = useState(new CustomStore({
     key: 'id',
     load: () => sendRequest(`${URL}/companies`),
     insert: (payload) => sendRequest(`${URL}/companies`, 'POST', {
       ...payload,
+    })
+    .then((payload) => {
+      dispatch(companiesActions.triggerUpdateStatus());
+      return payload;
     }),
     update: (key, payload) => sendRequest(`${URL}/companies`, 'PUT', {
       id: key,

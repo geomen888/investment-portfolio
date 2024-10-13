@@ -6,6 +6,7 @@ import { Company } from '../common/interfaces';
 interface CompaniesState {
   items: Company[];
   status: RequestStatus;
+  updateTrigger: boolean;
   error: string | null;
 }
 
@@ -13,6 +14,7 @@ const initialState: CompaniesState = {
   items: [],
   status: RequestStatus.IDLE,
   error: null,
+  updateTrigger: false,
 };
 
 const fetchData = async () => {
@@ -37,7 +39,11 @@ export const fetchCompanies = createAsyncThunk('companies/fetchCompanies', async
 const companiesSlice = createSlice({
   name: 'companies',
   initialState,
-  reducers: {},
+  reducers: {
+    triggerUpdateStatus(state) { 
+      state.updateTrigger = !state.updateTrigger
+     }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCompanies.pending, (state) => {
@@ -53,5 +59,7 @@ const companiesSlice = createSlice({
       });
   },
 });
+
+export const companiesActions = companiesSlice.actions;
 
 export default companiesSlice.reducer;
