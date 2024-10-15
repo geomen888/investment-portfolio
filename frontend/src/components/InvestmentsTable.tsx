@@ -118,7 +118,7 @@ const SideBar: React.FC = () => {
 
   return (<Sidebar checked={chartChecker}>
     <DataGrid
-      id='companies-candidates'
+      id='investments'
       dataSource={companiesData}
       keyExpr="id"
       showBorders={true}

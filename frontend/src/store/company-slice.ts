@@ -6,7 +6,7 @@ import { Company } from '../common/interfaces';
 interface CompaniesState {
   items: Company[];
   status: RequestStatus;
-  updateTrigger: boolean;
+  updateApiTrigger: boolean;
   error: string | null;
 }
 
@@ -14,7 +14,7 @@ const initialState: CompaniesState = {
   items: [],
   status: RequestStatus.IDLE,
   error: null,
-  updateTrigger: false,
+  updateApiTrigger: false,
 };
 
 const fetchData = async () => {
@@ -41,7 +41,7 @@ const companiesSlice = createSlice({
   initialState,
   reducers: {
     triggerUpdateStatus(state) { 
-      state.updateTrigger = !state.updateTrigger
+      state.updateApiTrigger = !state.updateApiTrigger
      }
   },
   extraReducers: (builder) => {

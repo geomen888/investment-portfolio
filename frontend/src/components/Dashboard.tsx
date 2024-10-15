@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Topbar from './TopBar';
-import SideBar from './Sidebar';
+import InvesstmentsTable from './InvestmentsTable';
 import Chart from './Chart';
-import Table from './Table';
+import CompaniesTable from './CompaniesTable';
 
-interface DashboardGridProps {}
+interface DashboardGridProps { }
 
 const DashboardGrid = styled.div<DashboardGridProps>`
   display: grid;
@@ -18,13 +18,13 @@ const DashboardGrid = styled.div<DashboardGridProps>`
 `;
 
 const Dashboard: React.FC = () => {
-  
+
   return (
     <DashboardGrid>
-    <Topbar />
-    <SideBar  />
-    <Chart />
-    <Table />
+      <Topbar />
+      <InvesstmentsTable />
+      <Chart />
+      <CompaniesTable />
     </DashboardGrid>
   );
 };

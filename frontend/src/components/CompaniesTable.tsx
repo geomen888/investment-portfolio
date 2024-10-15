@@ -76,7 +76,7 @@ const Table: React.FC = () => {
   return (
     <InvestedCompaniesTable>
       <DataGrid
-      id='companies-candidates'
+      id='companies'
       dataSource={companiesData}
       keyExpr="id"
       showBorders={true}

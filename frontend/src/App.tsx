@@ -12,19 +12,19 @@ import { fetchCompanies, companiesActions } from './store/company-slice';
 function App() {
   const dispatch: AppDispatch = useDispatch();
 
-  const { status, updateTrigger } = useSelector((state: CompaniesState) => state.companies);
+  const { status, updateApiTrigger } = useSelector((state: CompaniesState) => state.companies);
 
   useLayoutEffect(() => {
     
     if (status === RequestStatus.IDLE) {
       dispatch(fetchCompanies());
     }
-    if (updateTrigger) {
+    if (updateApiTrigger) {
       dispatch(fetchCompanies());
       dispatch(companiesActions.triggerUpdateStatus());
     } 
 
-  }, [status, updateTrigger, dispatch]);
+  }, [status, updateApiTrigger, dispatch]);
 
   return (
 
