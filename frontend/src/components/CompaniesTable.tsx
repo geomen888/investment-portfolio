@@ -12,9 +12,9 @@ import { companiesActions } from './../store/company-slice';
 
 import { foundingRounds, URL } from '../common/constants';
 
-interface InvestedCompaniesTableProps {};
+interface CompaniesTableProps {};
 
-const InvestedCompaniesTable = styled.div<InvestedCompaniesTableProps>`
+const CompaniesTable = styled.div<CompaniesTableProps>`
   background-color: white;
   padding: 1.5rem;
   border: 1px solid #ccc;
@@ -74,7 +74,7 @@ const Table: React.FC = () => {
 
     
   return (
-    <InvestedCompaniesTable>
+    <CompaniesTable>
       <DataGrid
       id='companies'
       dataSource={companiesData}
@@ -116,7 +116,7 @@ const Table: React.FC = () => {
         showInfo={true}
         showNavigationButtons={true} />
     </DataGrid>
-    </InvestedCompaniesTable>
+    </CompaniesTable>
   );
 };
 

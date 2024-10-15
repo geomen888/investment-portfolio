@@ -18,7 +18,7 @@ interface SimulateButtonProps {
   onClick: () => void;
 }
 
-const Sidebar = styled.div<SidebarProps>`
+const InvestmenstLeftSide = styled.div<SidebarProps>`
   background-color: #fafafa;
   padding: .1rem;
   display: flex;
@@ -116,7 +116,7 @@ const SideBar: React.FC = () => {
     console.log('Chart triggered');
   };
 
-  return (<Sidebar checked={chartChecker}>
+  return (<InvestmenstLeftSide checked={chartChecker}>
     <DataGrid
       id='investments'
       dataSource={companiesData}
@@ -172,7 +172,7 @@ const SideBar: React.FC = () => {
         showNavigationButtons={true} />
     </DataGrid>
     <SimulateButton onClick={handleSimulationClick}>Chart</SimulateButton>
-  </Sidebar>)
+  </InvestmenstLeftSide>)
 }
 
 export default SideBar;
