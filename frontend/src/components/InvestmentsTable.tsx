@@ -11,14 +11,14 @@ import { uiActions } from './../store/ui-slice';
 import { companiesActions } from './../store/company-slice';
 import { CompaniesState } from '../store';
 import { foundingRounds, goalStatus, investmentStatus, URL } from '../common/constants';
-interface SidebarProps {
+interface InvestmenstLeftProps {
   checked: boolean;
 }
-interface SimulateButtonProps {
+interface ChartButtonProps {
   onClick: () => void;
 }
 
-const InvestmenstLeftSide = styled.div<SidebarProps>`
+const InvestmenstLeftSide = styled.div<InvestmenstLeftProps>`
   background-color: #fafafa;
   padding: .1rem;
   display: flex;
@@ -28,7 +28,7 @@ const InvestmenstLeftSide = styled.div<SidebarProps>`
   grid-row: 2 / 4;
 `;
 
-const SimulateButton = styled.button<SimulateButtonProps>`
+const ChartButton = styled.button<ChartButtonProps>`
   background-color: #4CAF50;
   color: white;
   padding: 10px;
@@ -60,7 +60,7 @@ const SideBar: React.FC = () => {
   }));
 
   const chartChecker = useSelector((state: UIState) => state.ui.cartIsVisible) || false;
-  const [companiesData] = useState(new CustomStore({
+  const [investmentsData] = useState(new CustomStore({
     key: 'id',
     load: () => sendRequest(`${URL}/investments`),
     insert: (payload) => sendRequest(`${URL}/investments`, 'POST', {
@@ -119,7 +119,7 @@ const SideBar: React.FC = () => {
   return (<InvestmenstLeftSide checked={chartChecker}>
     <DataGrid
       id='investments'
-      dataSource={companiesData}
+      dataSource={investmentsData}
       keyExpr="id"
       showBorders={true}
       customizeColumns={customizeColumns}
@@ -171,7 +171,7 @@ const SideBar: React.FC = () => {
         showInfo={true}
         showNavigationButtons={true} />
     </DataGrid>
-    <SimulateButton onClick={handleSimulationClick}>Chart</SimulateButton>
+    <ChartButton onClick={handleSimulationClick}>Chart</ChartButton>
   </InvestmenstLeftSide>)
 }
 
