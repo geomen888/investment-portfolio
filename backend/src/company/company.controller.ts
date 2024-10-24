@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Query, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Put, ValidationPipe, UsePipes } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CompanyEntity } from '../postgres/pg-models/company.entity';
 
+import { CreateCompanyDto } from './dto/create-company.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 @Controller('companies')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
@@ -17,15 +19,16 @@ export class CompanyController {
   }
 
   @Post()
-  async create(@Body() companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async create(@Body() companyData: CreateCompanyDto): Promise<CompanyEntity> {
 
-    return this.companyService.create({
-      ...companyData
-    });
+    return this.companyService.create(companyData);
   }
 
   @Put()
-  async update(@Body() companyData: Partial<CompanyEntity>): Promise<CompanyEntity> {
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async update(@Body() companyData: UpdateCompanyDto): Promise<CompanyEntity> {
+
     return this.companyService.update(companyData.id, companyData);
   }
 }

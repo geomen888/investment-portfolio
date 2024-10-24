@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { URL } from './../common/constants'; 
 import { RequestStatus  } from '../common/enums';
 import { Company } from '../common/interfaces';
+import { customStoreRequest } from './request-managment-service/apiService';
 
 interface CompaniesState {
   items: Company[];
@@ -17,22 +17,9 @@ const initialState: CompaniesState = {
   updateApiTrigger: false,
 };
 
-const fetchData = async () => {
-  const response = await fetch(
-    `${URL}/companies`
-  );
-
-  if (!response.ok) {
-    throw new Error('Could not fetch comapny data!');
-  }
-
-  const data = await response.json();
-
-  return data;
-};
 
 export const fetchCompanies = createAsyncThunk('companies/fetchCompanies', async () => {
-  const companyData = await fetchData();
+  const companyData = await customStoreRequest<Company>('companies');
   return companyData;
 });
 
@@ -51,7 +38,7 @@ const companiesSlice = createSlice({
       })
       .addCase(fetchCompanies.fulfilled, (state, action) => {
         state.status = RequestStatus.SUCCEEDED;
-        state.items = action.payload;
+        state.items = action.payload || [];
       })
       .addCase(fetchCompanies.rejected, (state, action) => {
         state.status =  RequestStatus.FAILED;

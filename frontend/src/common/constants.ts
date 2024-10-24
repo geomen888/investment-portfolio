@@ -27,9 +27,6 @@ export const tags = [{
   name: Tags.REAL_ESTATE,
 },
 {
-  name: Tags.CONSUMER,
-},
-{
   name: Tags.PAYMENTS,
 }, 
 {

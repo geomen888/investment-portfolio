@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { URL } from './../common/constants'; 
 import { RequestStatus  } from '../common/enums';
 import { Investment } from '../common/interfaces';
-
+import { customStoreRequest } from './request-managment-service/apiService';
 
 interface investmentsState {
   items: Investment[];
@@ -16,22 +15,9 @@ const initialState: investmentsState = {
   error: null,
 };
 
-const fetchData = async () => {
-  const response = await fetch(
-    `${URL}/investments`
-  );
-
-  if (!response.ok) {
-    throw new Error('Could not fetch investments data!');
-  }
-
-  const data = await response.json();
-
-  return data;
-};
 
 export const fetchInvestments = createAsyncThunk('investments/fetchInvestments', async () => {
-  const investmentsData = await fetchData();
+  const investmentsData = await customStoreRequest<Investment>('investments');
   return investmentsData;
 });
 

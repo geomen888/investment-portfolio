@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Put, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, ValidationPipe } from '@nestjs/common';
 import { InvestmentService  } from './investment.service';
 import { InvestmentEntity } from '../postgres/pg-models/investment.entity';
-
+import { CreateInvestmentDto } from './dto/create-investment.dto';
+import { UpdateInvestmentDto } from './dto/update-investment.dto';
 @Controller('investments')
 export class InvestmentController {
   constructor(private readonly investmentService: InvestmentService) {}
@@ -12,12 +13,12 @@ export class InvestmentController {
   }
 
   @Post()
-  async create(@Body() investData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
-    return this.investmentService.createWithComanyId(investData);
+  async create(@Body(ValidationPipe) createInvestmentDto: CreateInvestmentDto, ): Promise<InvestmentEntity> {
+    return this.investmentService.createWithComanyId(createInvestmentDto);
   }
 
   @Put()
-  async update(@Body() investData: Partial<InvestmentEntity>): Promise<InvestmentEntity> {
-    return this.investmentService.updateWithComanyId(investData);
+  async update(@Body(ValidationPipe) updateInvestmentDto: UpdateInvestmentDto): Promise<InvestmentEntity> {
+    return this.investmentService.updateWithComanyId(updateInvestmentDto);
   }
 }

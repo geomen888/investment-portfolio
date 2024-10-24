@@ -9,6 +9,7 @@ import { CompanyEntity } from '../postgres/pg-models/company.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([CompanyEntity])],
   providers: [CompanyService],
-  controllers: [CompanyController]
+  controllers: [CompanyController],
+  exports: [CompanyService]
 })
 export class CompanyModule { }
