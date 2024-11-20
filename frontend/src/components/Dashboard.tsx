@@ -1,18 +1,21 @@
 import React, { useLayoutEffect } from 'react';
-import styled from 'styled-components';
+
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components';
 
-import Topbar from './TopBar';
-import InvesstmentsTable from './InvestmentsTable';
-import Chart from './Chart';
-import CompaniesTable from './CompaniesTable';
 
-import { AppDispatch, CompaniesState, InvestmentsState } from './../store';
 import { RequestStatus  } from './../common/enums';
+import { AppDispatch, CompaniesState, InvestmentsState } from './../store';
 import { fetchCompanies, companiesActions  } from './../store/company-slice';
 import { fetchInvestments } from './../store/investment-slice';
+import Chart from './Chart';
+import CompaniesTable from './CompaniesTable';
+import InvesstmentsTable from './InvestmentsTable';
+import Topbar from './TopBar';
 
-interface DashboardGridProps { }
+interface DashboardGridProps {
+  [key: string]: unknown;
+ }
 
 const DashboardGrid = styled.div<DashboardGridProps>`
   display: grid;

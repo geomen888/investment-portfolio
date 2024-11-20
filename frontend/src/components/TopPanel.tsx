@@ -1,9 +1,14 @@
 import React from 'react';
+
 import styled from 'styled-components';
 
 
-interface TopPanelProps { }
-interface VentureFundsInfoProps { }
+interface TopPanelProps {
+  [key: string]: unknown;
+ }
+interface VentureFundsInfoProps {
+  [key: string]: unknown;
+ }
 
 const TopPanel = styled.div<TopPanelProps>`
   background-color: #f5f5f5;

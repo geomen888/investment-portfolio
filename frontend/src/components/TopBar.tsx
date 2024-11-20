@@ -1,5 +1,7 @@
 import React from 'react';
+
 import styled from 'styled-components';
+
 import logo from '../assets/logo_converted.png'; // Import the logo image
 
 const TopBarContainer = styled.div`

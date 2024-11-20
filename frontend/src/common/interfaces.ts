@@ -41,4 +41,5 @@ export type TData = Record<string, unknown>;
 
 
 export type TCustomStoreRequest = <T>(urlPath: string, method?: string, data?: TData) => Promise<T[]>;
-export type TCrud = (...args: any[]) => PromiseLike<any>; 
+export type TCrud = (...args: any[]) => PromiseLike<any>;
+// export type TCrud<TArgs extends unknown[], TResult> = (...args: TArgs) => PromiseLike<TResult>;

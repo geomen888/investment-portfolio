@@ -4,7 +4,7 @@ export enum FundingRound {
   SERIES_A = 'SERIES_A',
   SERIES_B = 'SERIES_B',
   SERIES_C = 'SERIES_C'
-};
+}
 
 export enum Tags {
   SASS = 'SaaS',
@@ -19,7 +19,7 @@ export enum Tags {
   PAYMENTS = 'Payments',
   LOGISTICS_SUPLY_CHAIN = 'Logistics and Supply Chain',
   PRODUCTION = 'Production'
-};
+}
 
 export enum RequestStatus {
   IDLE = 'idle',

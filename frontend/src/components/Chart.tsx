@@ -1,4 +1,5 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
+
 import Chart, {
   Legend,
   SeriesTemplate,
@@ -7,11 +8,11 @@ import Chart, {
   CommonSeriesSettings,
   Export,
 } from 'devextreme-react/chart';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import TopPanel from './TopPanel'
 import { InvestmentsState, UIState } from './../store';
+import TopPanel from './TopPanel'
 
 interface ChartAreaProps {
   checked: boolean;
@@ -28,7 +29,7 @@ const ChartArea = styled.div<ChartAreaProps>`
 
 const ChartComponent: React.FC = () => {
   const chartChecker = useSelector((state: UIState) => state.ui.cartIsVisible) || false;
-  const { items = [], status } = useSelector((state: InvestmentsState) => state.investments) || {};
+  const { items = [] } = useSelector((state: InvestmentsState) => state.investments) || {};
 
   return (
     <ChartArea checked={chartChecker} >

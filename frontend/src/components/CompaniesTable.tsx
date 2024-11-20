@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
+
+
+
+import {
+  RowValidatingEvent,
+} from 'devextreme/ui/data_grid';
+import { ValueChangedEvent } from 'devextreme/ui/tag_box';
 import DataGrid, {
   Column,
   Scrolling,
@@ -9,14 +15,6 @@ import DataGrid, {
   Editing,
   Lookup,
 } from 'devextreme-react/data-grid'
-import { ValueChangedEvent } from 'devextreme/ui/tag_box';
-
-import TagBox from 'devextreme-react/tag-box';
-
-import {
-  RowValidatingEvent,
-} from 'devextreme/ui/data_grid';
-
 import {
   EmailRule,
   NumericRule,
@@ -24,18 +22,21 @@ import {
   StringLengthRule,
   CustomRule
 } from 'devextreme-react/form';
-
-
+import TagBox from 'devextreme-react/tag-box';
 import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
+
 import { AppDispatch } from './../store'
-import { companiesActions } from './../store/company-slice'
-import { getCustomStore } from './../store/request-managment-service/customStoreService'
-import { customStoreRequest } from './../store/request-managment-service/apiService'
-import { Company } from '../common/interfaces'
 import { foundingRounds, tags } from '../common/constants'
 import { Tags } from '../common/enums'
+import { Company } from '../common/interfaces'
+import { companiesActions } from './../store/company-slice'
+import { customStoreRequest } from './../store/request-managment-service/apiService'
+import { getCustomStore } from './../store/request-managment-service/customStoreService'
 
-interface CompaniesTableProps { }
+interface CompaniesTableProps {
+  [key: string]: unknown;
+ }
 
 interface CellInfo {
   data: Company;

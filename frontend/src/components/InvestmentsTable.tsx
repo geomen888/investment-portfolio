@@ -1,5 +1,8 @@
 import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
+
+import {
+  RowValidatingEvent,
+} from 'devextreme/ui/data_grid';
 import DataGrid, {
   Column,
   Scrolling,
@@ -9,31 +12,25 @@ import DataGrid, {
   Editing,
   Lookup,
 } from 'devextreme-react/data-grid'
-
-import {
-  RowValidatingEvent,
-} from 'devextreme/ui/data_grid';
-
 import {
   NumericRule,
   RequiredRule,
   StringLengthRule,
 } from 'devextreme-react/form';
-
 import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch, UIState } from './../store'
-import { uiActions } from './../store/ui-slice'
-import { getCustomStore } from './../store/request-managment-service/customStoreService'
-import { companiesActions } from './../store/company-slice'
-import { CompaniesState } from '../store'
-import { customStoreRequest } from '../store/request-managment-service/apiService'
-import { Investment } from '../common/interfaces'
+import styled from 'styled-components'
 
+import { AppDispatch, UIState , CompaniesState } from './../store'
 import {
   foundingRounds,
   goalStatus,
   investmentStatus,
 } from '../common/constants'
+import { Investment } from '../common/interfaces'
+import { companiesActions } from './../store/company-slice'
+import { customStoreRequest } from '../store/request-managment-service/apiService'
+import { getCustomStore } from './../store/request-managment-service/customStoreService'
+import { uiActions } from './../store/ui-slice'
 interface InvestmenstLeftProps {
   checked: boolean
 }
